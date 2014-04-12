@@ -7,17 +7,13 @@
 		_SpecularPercent ("SpecularPercent", Range (0.0, 1.0)) = 0.2
 		_DiffuseEnvironmentMap ("Diffuse Environment Map", CUBE) = "" {}
 		_DiffusePercent ("DiffusePercent", Range (0.0, 1.0)) = 0.8
+		_Lod ("Lod", FLOAT) = 0.0
 	}
 	
 	SubShader 
 	{			
 		Pass
 		{
-			Tags
-			{ 
-				"LightMode" = "ForwardBase"
-			}
-		
 			GLSLPROGRAM
 			
 			uniform sampler2D _ColorMap;
@@ -25,6 +21,7 @@
 			uniform float _SpecularPercent;
 			uniform samplerCube _DiffuseEnvironmentMap;
 			uniform float _DiffusePercent;
+			uniform float _Lod;
 		
 			uniform mat4 _Object2World;
 			uniform mat4 _World2Object;
@@ -56,7 +53,7 @@
 			{
 				// Look up environment map values in cube maps
 				vec3 diffuseColor = vec3 (textureCube (_DiffuseEnvironmentMap, normalize (WorldSpaceNormal)));
-				vec3 specularColor = vec3 (textureCube (_SpecularEnvironmentMap, normalize (WorldSpaceReflectedDirection)));
+				vec3 specularColor = vec3 (textureCubeLod (_SpecularEnvironmentMap, normalize (WorldSpaceReflectedDirection), _Lod));
 				
 				// Final color
 				vec3 baseColor = vec3 (texture2D (_ColorMap, gl_TexCoord[0].xy));

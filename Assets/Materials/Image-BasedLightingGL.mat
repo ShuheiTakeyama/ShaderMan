@@ -17,7 +17,7 @@ Material:
         first:
           name: _ColorMap
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: db67e35a34cf347b58a7474d22289625, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -38,9 +38,13 @@ Material:
       data:
         first:
           name: _SpecularPercent
-        second: .714285672
+        second: 1
       data:
         first:
           name: _DiffusePercent
         second: 1
+      data:
+        first:
+          name: _Lod
+        second: 5
     m_Colors: {}
