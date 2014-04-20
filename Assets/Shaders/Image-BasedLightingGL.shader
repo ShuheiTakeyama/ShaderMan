@@ -17,6 +17,7 @@
 			GLSLPROGRAM
 			
 			uniform sampler2D _ColorMap;
+			uniform vec4 _ColorMap_ST;
 			uniform samplerCube _SpecularEnvironmentMap;
 			uniform float _SpecularPercent;
 			uniform samplerCube _DiffuseEnvironmentMap;
@@ -56,7 +57,7 @@
 				vec3 specularColor = vec3 (textureCubeLod (_SpecularEnvironmentMap, normalize (WorldSpaceReflectedDirection), _Lod));
 				
 				// Final color
-				vec3 baseColor = vec3 (texture2D (_ColorMap, gl_TexCoord[0].xy));
+				vec3 baseColor = vec3 (texture2D (_ColorMap, gl_TexCoord[0].xy * _ColorMap_ST.xy + _ColorMap_ST.zw));
 				vec3 color = mix (baseColor, baseColor * diffuseColor, _DiffusePercent);
 				color = mix (color, specularColor + color, _SpecularPercent);
 				
